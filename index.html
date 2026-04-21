@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ambient Sounds API | High-Quality Audio for Relaxation & Meditation</title>
+    <meta name="description" content="Access a curated collection of high-quality ambient sounds and Islamic recitations via our responsive JSON API. Perfect for developers building relaxation, meditation, or background atmosphere apps.">
+    <meta name="keywords" content="Ambient Sounds API, Nature Sounds, Islamic Recitations, Relaxation Audio, Meditation API, Free Audio API">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .glass {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        body {
+            background: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+            color: #e2e8f0;
+        }
+    </style>
+</head>
+<body class="min-h-screen font-sans">
+    <nav class="p-6 border-b border-gray-700">
+        <div class="container mx-auto flex justify-between items-center">
+            <h1 class="text-2xl font-bold text-blue-400"><i class="fas fa-wind mr-2"></i>Ambient Sounds API</h1>
+            <div class="space-x-6">
+                <a href="#docs" class="hover:text-blue-400 transition">Docs</a>
+                <a href="#endpoints" class="hover:text-blue-400 transition">Endpoints</a>
+                <a href="https://github.com/uthumany/Ambient-sounds-API" class="bg-blue-600 px-4 py-2 rounded-lg hover:bg-blue-700 transition">GitHub</a>
+            </div>
+        </div>
+    </nav>
+
+    <header class="container mx-auto py-20 px-6 text-center">
+        <h2 class="text-5xl font-extrabold mb-6">The Ultimate Ambient Audio API</h2>
+        <p class="text-xl text-gray-400 max-w-2xl mx-auto mb-10">
+            Integrate high-fidelity nature sounds and spiritual recitations into your applications with a simple, fast, and reliable JSON API.
+        </p>
+        <div class="flex justify-center gap-4">
+            <a href="#endpoints" class="bg-blue-600 px-8 py-3 rounded-full font-bold hover:bg-blue-700 transition">Get Started</a>
+            <a href="sounds.json" target="_blank" class="glass px-8 py-3 rounded-full font-bold hover:bg-white/20 transition">View JSON</a>
+        </div>
+    </header>
+
+    <main class="container mx-auto px-6 pb-20">
+        <section id="docs" class="mb-20">
+            <h3 class="text-3xl font-bold mb-8 border-l-4 border-blue-500 pl-4">API Documentation</h3>
+            <div class="grid md:grid-cols-2 gap-8">
+                <div class="glass p-8 rounded-2xl">
+                    <h4 class="text-xl font-bold mb-4 text-blue-300">Base URL</h4>
+                    <code class="block bg-black/50 p-4 rounded-lg text-green-400 break-all">
+                        https://raw.githubusercontent.com/uthumany/Ambient-sounds-API/master/
+                    </code>
+                </div>
+                <div class="glass p-8 rounded-2xl">
+                    <h4 class="text-xl font-bold mb-4 text-blue-300">Response Format</h4>
+                    <p class="text-gray-400 mb-4">All data is returned in standard JSON format, including file names, direct URLs, and categories.</p>
+                    <pre class="bg-black/50 p-4 rounded-lg text-sm overflow-x-auto"><code>{
+  "name": "Rain Sounds",
+  "url": "https://.../rain.mp3",
+  "category": "Nature"
+}</code></pre>
+                </div>
+            </div>
+        </section>
+
+        <section id="endpoints">
+            <h3 class="text-3xl font-bold mb-8 border-l-4 border-blue-500 pl-4">Available Endpoints</h3>
+            <div class="glass rounded-2xl overflow-hidden">
+                <table class="w-full text-left">
+                    <thead class="bg-white/5">
+                        <tr>
+                            <th class="p-4 font-bold">Method</th>
+                            <th class="p-4 font-bold">Endpoint</th>
+                            <th class="p-4 font-bold">Description</th>
+                        </tr>
+                    </thead>
+                    <tbody class="divide-y divide-gray-700">
+                        <tr>
+                            <td class="p-4"><span class="bg-green-500/20 text-green-400 px-2 py-1 rounded text-xs font-bold">GET</span></td>
+                            <td class="p-4"><code>/sounds.json</code></td>
+                            <td class="p-4 text-gray-400">Fetch all available ambient sounds and recitations.</td>
+                        </tr>
+                        <tr>
+                            <td class="p-4"><span class="bg-green-500/20 text-green-400 px-2 py-1 rounded text-xs font-bold">GET</span></td>
+                            <td class="p-4"><code>/{filename}.mp3</code></td>
+                            <td class="p-4 text-gray-400">Direct stream/download link for a specific audio file.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </section>
+
+        <section class="mt-20">
+            <h3 class="text-3xl font-bold mb-8 border-l-4 border-blue-500 pl-4">Live Preview</h3>
+            <div id="preview-container" class="grid md:grid-cols-3 gap-6">
+                <!-- Loaded via JS -->
+            </div>
+        </section>
+    </main>
+
+    <footer class="bg-black/30 py-10 text-center text-gray-500 border-t border-gray-800">
+        <p>&copy; 2026 Ambient Sounds API. Hosted on GitHub Pages.</p>
+    </footer>
+
+    <script>
+        fetch('sounds.json')
+            .then(response => response.json())
+            .then(data => {
+                const container = document.getElementById('preview-container');
+                data.slice(0, 6).forEach(sound => {
+                    const card = document.createElement('div');
+                    card.className = 'glass p-6 rounded-xl hover:scale-105 transition duration-300';
+                    card.innerHTML = `
+                        <div class="text-blue-400 mb-4"><i class="fas fa-music fa-2x"></i></div>
+                        <h5 class="font-bold mb-2 truncate" title="${sound.name}">${sound.name}</h5>
+                        <span class="text-xs bg-blue-500/20 text-blue-300 px-2 py-1 rounded mb-4 inline-block">${sound.category}</span>
+                        <audio controls class="w-full h-8 mt-4">
+                            <source src="${sound.url}" type="audio/mpeg">
+                        </audio>
+                    `;
+                    container.appendChild(card);
+                });
+            });
+    </script>
+</body>
+</html>
